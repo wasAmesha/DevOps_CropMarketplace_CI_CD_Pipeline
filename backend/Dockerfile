@@ -1,20 +1,21 @@
-# Use a compatible Node.js version (16 or later)
-FROM node:16
+# Use the official Node.js image
+FROM node:18
 
-# Create and change to the app directory
-WORKDIR /app
+# Create app directory 
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Install app dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application files
+# Rebuild native modules for bcrypt
+RUN npm rebuild bcrypt --build-from-source
+
+# Bundle app source
 COPY . .
 
-# Expose the application port
+# Expose the port that the app runs on
 EXPOSE 8000
 
-# Start the application
+# Command to run the app
 CMD ["npm", "start"]
