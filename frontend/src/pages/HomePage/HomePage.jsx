@@ -16,7 +16,7 @@ function HomePage() {
       <img src={"/Navbar/walll.jpg"} alt="" className="crop" />
       <div className="type-writer-container">
         <TypeWriter
-          text="Welcome to CropXchange Digital marketplace"
+          text="Welcome to CropXchange Digital"
           textStyle={{
             fontFamily: "Gill Sans",
             fontSize: "20px",
