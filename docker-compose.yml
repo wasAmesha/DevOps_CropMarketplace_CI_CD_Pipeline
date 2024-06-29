@@ -1,0 +1,37 @@
+version: "3"
+services:
+  db:
+    image: mongo:latest
+    container_name: db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend_1:
+    build:
+      context: ./backend
+    container_name: backend_1
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb+srv://Weather99:chami1999928@weatherdb.kmumq9l.mongodb.net/?retryWrites=true&w=majority
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend_1:
+    build:
+      context: ./frontend
+    container_name: frontend_1
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend_1
+    volumes:
+      - ./frontend:/app
+
+volumes:
+  mongo-data:
